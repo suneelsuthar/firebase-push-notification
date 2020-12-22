@@ -1,7 +1,26 @@
 import logo from './logo.svg';
+import React from 'react'
 import './App.css';
+import firebase from './firebase'
 
-function App() {
+  export default class App extends React.Component{
+    constructor(){
+      super()
+      this.state={
+
+      }
+    }
+    componentDidMount(){
+      const messaging =firebase.messaging()
+      messaging.requestPermission().then(()=>{
+        return messaging.getToken()
+      }).then(token=>{
+        console.log("Token",token)
+      }).catch(err=>{
+        console.log("error",err)
+      })
+    }
+    render(){
   return (
     <div className="App">
       <header className="App-header">
@@ -21,5 +40,6 @@ function App() {
     </div>
   );
 }
+  }
 
-export default App;
+
